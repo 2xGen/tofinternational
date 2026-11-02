@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* TOF brand — hoofdkleur + accent */
+    --tof-indigo: #1e1446;
+    --tof-surface: #261b5a;
+    --tof-yellow: #f0fa32;
+    /* Tenniskids primaire kleuren */
+    --tof-red: #e34f55;
+    --tof-orange: #f28c28;
+    --tof-green: #43a66c;
+    --tof-blue: #2374d9;
+
+    /* Dark theme */
+    --background: 250 56% 18%; /* #1E1446 */
+    --foreground: 0 0% 100%;
+    --card: 249 54% 23%; /* #261B5A */
+    --card-foreground: 0 0% 100%;
+    --popover: 249 54% 23%;
+    --popover-foreground: 0 0% 100%;
+    /* Primary CTA = accent geel */
+    --primary: 64 95% 59%;
+    --primary-foreground: 250 56% 18%;
+    --secondary: 249 40% 28%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 249 35% 26%;
+    --muted-foreground: 0 0% 85%;
+    --accent: 64 95% 59%;
+    --accent-foreground: 250 56% 18%;
+    --destructive: 357 73% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 100% / 0.12;
+    --input: 0 0% 100% / 0.12;
+    --ring: 64 95% 59%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-tof-indigo font-sans font-normal text-white antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-semibold text-white;
+  }
+}
+
+@layer utilities {
+  .text-brand {
+    color: var(--tof-yellow);
+  }
+
+  .bg-brand-solid {
+    background-color: var(--tof-indigo);
+  }
+
+  .bg-tof-surface {
+    background-color: var(--tof-surface);
+  }
+
+  /* Animated Button Gradient Effect */
+  @property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+  }
+
+  .animated-button::before,
+  .animated-button::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .animated-button:hover::before,
+  .animated-button:hover::after {
+    opacity: 1;
+    background-color: var(--first-color, var(--tof-yellow));
+  }
+
+  .animated-button:hover::before {
+    width: 102%;
+    height: 104%;
+    border-radius: 50px;
+    top: -2%;
+    left: -1%;
+  }
+
+  .animated-button:hover::after {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    transform: scale(0.9);
+    filter: blur(70px);
+  }
+
+  @keyframes spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }
+
+  .hover-translate {
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .hover-translate:hover {
+    transform: translateY(-10px);
+  }
+
+  #part2 {
+    background-size: 50px 50px;
+  }
+
+  @media (min-width: 768px) {
+    #part2 {
+      background-size: 80px 80px;
+    }
+  }
+}

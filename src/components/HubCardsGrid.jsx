@@ -1,0 +1,80 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import Link from '@/i18n/Link';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { getPageHeroImage } from '@/data/heroSlides';
+import { useLocale } from '@/i18n/LocaleProvider';
+import { ot } from '@/i18n/content/overTof';
+
+const HUB_LABEL_KEYS = {
+  '/missie-visie': 'hub.overTof.missie',
+  '/knltb': 'hub.overTof.knltb',
+  '/tof-methode': 'hub.overTof.methode',
+  '/tof-score': 'hub.overTof.score',
+  '/magneetposters': 'hub.overTof.posters',
+  '/leraren-app': 'hub.overTof.app',
+  '/pakketten': 'hub.producten.packages',
+  '/handboek': 'hub.producten.handbook',
+  '/webshop': 'hub.producten.shop',
+};
+
+const HubCardsGrid = ({ items, columns = 3 }) => {
+  const { t, locale } = useLocale();
+  const gridClass =
+    columns === 3
+      ? 'md:grid-cols-2 lg:grid-cols-3'
+      : 'md:grid-cols-2';
+
+  return (
+    <div className={`grid gap-6 ${gridClass}`}>
+      {items.map((item, index) => {
+        const image = getPageHeroImage(item.imageRoute);
+        const label = HUB_LABEL_KEYS[item.href] ? t(HUB_LABEL_KEYS[item.href]) : item.label;
+
+        return (
+          <motion.div
+            key={item.href}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: index * 0.06 }}
+          >
+            <Link
+              href={item.href}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-tof-surface shadow-lg transition-shadow hover:shadow-xl"
+            >
+              <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <Image
+                  src={image.src}
+                  alt={image.alt || item.label}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 360px"
+                  quality={75}
+                />
+                <div
+                  className="absolute inset-0 bg-black/40"
+                  aria-hidden
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-5 md:p-6">
+                <h3 className="text-lg font-black text-white md:text-xl">{label}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-white/70">
+                  {ot(locale, item.description)}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-tof-indigo group-hover:gap-2 transition-all">
+                  {t('common.learnMore')} <ArrowRight className="h-4 w-4" aria-hidden />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default HubCardsGrid;
