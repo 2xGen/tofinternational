@@ -14,6 +14,11 @@ SUPABASE_ORDERS_TABLE=webshop_orders
 
 Use a server-side secret key only (never expose it in browser/client code).
 
+## Interest registrations
+
+Run `supabase/interest_registrations.sql` in the Supabase SQL Editor.
+`POST /api/register-interest` inserts each form submission into `interest_registrations` with the server secret key. Row Level Security is on and the public key has no access, so submissions are only visible in the Supabase dashboard.
+
 ## 3) How it works
 - Checkout submits order data to `POST /api/save-order`.
 - The API route inserts the row into Supabase.

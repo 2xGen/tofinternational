@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
 const TOF_EMAIL = process.env.ORDER_NOTIFICATION_EMAIL || 'info@tofsports.nl';
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 export async function POST(request) {
   try {
@@ -15,15 +18,30 @@ export async function POST(request) {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
+    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+      return NextResponse.json({ ok: false }, { status: 500 });
+    }
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { error: insertError } = await supabase.from('interest_registrations').insert({
+      name,
+      email,
+      country,
+      role,
+      consent: true,
+    });
+
+    if (insertError) {
+      console.error('Supabase insert error:', insertError);
+      return NextResponse.json({ ok: false }, { status: 500 });
+    }
+
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
-      console.warn('RESEND_API_KEY not set: interest registration stored in logs only.', {
-        name,
-        email,
-        country,
-        role,
-      });
-      return NextResponse.json({ ok: true, skipped: true });
+      return NextResponse.json({ ok: true, email: false });
     }
 
     const { Resend } = await import('resend');
@@ -47,7 +65,7 @@ export async function POST(request) {
 
     if (error) {
       console.error('Resend error:', error);
-      return NextResponse.json({ ok: false }, { status: 500 });
+      return NextResponse.json({ ok: true, email: false });
     }
 
     return NextResponse.json({ ok: true });
