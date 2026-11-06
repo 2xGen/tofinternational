@@ -24,12 +24,12 @@ const siteIcons = {
 
 export const metadata = MAINTENANCE_MODE
   ? {
-      title: 'TOF Sports International',
+      title: 'TOF sports international',
       description:
         'Practical tools, structured development methods and engaging activities for tennis and padel coaches, clubs and academies.',
       icons: siteIcons,
       openGraph: {
-        title: 'TOF Sports International',
+        title: 'TOF sports international',
         description:
           'Practical tools, structured development methods and engaging activities for tennis and padel coaches, clubs and academies.',
         type: 'website',
@@ -37,14 +37,14 @@ export const metadata = MAINTENANCE_MODE
       },
     }
   : {
-      title: 'TOF Sports International — Helping young players play, learn and grow',
+      title: 'TOF sports international — Structured development. Engaging coaching.',
       description:
-        'TOF Sports provides tennis and padel coaches, clubs and academies with the TOF Matrix, the TOF Teachers App and practical tools that keep young players playing and improving.',
+        'TOF Sports brings structure to player development through a proven coaching methodology, clear learning objectives and practical training tools.',
       icons: siteIcons,
       openGraph: {
-        title: 'TOF Sports International — Helping young players play, learn and grow',
+        title: 'TOF sports international — Structured development. Engaging coaching.',
         description:
-          'From the TOF Matrix to the TOF Teachers App, practical tools that support coaches and make player development more engaging.',
+          'TOF Sports brings structure to player development through a proven coaching methodology, clear learning objectives and practical training tools.',
         type: 'website',
         locale: 'en',
       },

@@ -84,6 +84,13 @@ export const PAGE_HERO_BY_ROUTE = {
   '/sparen': HERO_SLIDES[5],
   '/kennisbank': HERO_SLIDES[4],
   '/media': EXTRA_HERO_IMAGES.herkenbaar,
+  '/methodology': HERO_SLIDES[3],
+  '/platform': HERO_SLIDES[4],
+  '/licenses': EXTRA_HERO_IMAGES.herkenbaar,
+  '/about': {
+    src: 'https://iemgpccgdlwpsrsjuumo.supabase.co/storage/v1/object/public/TOF%20Sports/waarom%20tof%20500.jpg',
+    alt: 'Youth players developing with TOF',
+  },
 };
 
 export function getPageHeroImage(route, category) {

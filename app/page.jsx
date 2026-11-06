@@ -13,9 +13,9 @@ export const metadata = MAINTENANCE_MODE
         'Practical tools, structured development methods and engaging activities for tennis and padel coaches, clubs and academies.',
     }
   : {
-      title: 'TOF Sports International — Helping young players play, learn and grow',
+      title: 'TOF sports international — Structured development. Engaging coaching.',
       description:
-        'Practical tools, the TOF Matrix and the TOF Teachers App for tennis and padel coaches, clubs and academies.',
+        'TOF Sports brings structure to player development through a proven coaching methodology, clear learning objectives and practical training tools.',
     };
 
 export default function Page() {

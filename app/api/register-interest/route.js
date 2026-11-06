@@ -13,6 +13,9 @@ export async function POST(request) {
     const country = String(body?.country || '').trim();
     const role = String(body?.role || '').trim();
     const consent = body?.consent === true;
+    const organisation = String(body?.organisation || '').trim();
+    const message = String(body?.message || '').trim();
+    const interest = String(body?.interest || '').trim();
 
     if (!name || !email || !country || !role || !consent || !email.includes('@')) {
       return NextResponse.json({ ok: false }, { status: 400 });
@@ -26,13 +29,12 @@ export async function POST(request) {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
-    const { error: insertError } = await supabase.from('interest_registrations').insert({
-      name,
-      email,
-      country,
-      role,
-      consent: true,
-    });
+    const row = { name, email, country, role, consent: true };
+    if ('organisation' in body) row.organisation = organisation || null;
+    if ('message' in body) row.message = message || null;
+    if ('interest' in body) row.interest = interest || null;
+
+    const { error: insertError } = await supabase.from('interest_registrations').insert(row);
 
     if (insertError) {
       console.error('Supabase insert error:', insertError);
@@ -59,8 +61,13 @@ export async function POST(request) {
         `Email: ${email}`,
         `Country: ${country}`,
         `I am a: ${role}`,
+        interest ? `Interested in: ${interest}` : null,
+        organisation ? `Organisation: ${organisation}` : null,
+        message ? `Message: ${message}` : null,
         'Agreed to the terms and privacy policy: yes',
-      ].join('\n'),
+      ]
+        .filter(Boolean)
+        .join('\n'),
     });
 
     if (error) {
