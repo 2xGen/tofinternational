@@ -108,7 +108,7 @@ const HeroSection = () => {
       <div className="relative z-20 mx-auto flex w-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:min-h-[calc(100svh-5rem)] lg:flex-row lg:items-center lg:px-8 xl:max-w-[90rem] 2xl:max-w-[100rem]">
         <motion.div
           style={{ y: copyY }}
-          className="mt-4 w-full max-w-xl lg:ml-auto lg:mr-12 lg:mt-0 lg:w-[min(42%,32rem)] lg:max-w-none"
+          className="-mt-8 w-full max-w-xl sm:-mt-4 lg:ml-auto lg:mr-12 lg:mt-0 lg:w-[min(42%,32rem)] lg:max-w-none"
         >
           <motion.p
             initial={{ opacity: 0, y: 16 }}
